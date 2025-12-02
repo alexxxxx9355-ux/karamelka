@@ -652,3 +652,60 @@ h1 {
         align-items: flex-start;
     }
 }
+/* ==== AI Mesh Wave Background ==== */
+
+.mesh-container {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 55%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.mesh-svg {
+    width: 120%;
+    height: 120%;
+    opacity: 0.45;
+    filter: blur(12px);
+}
+
+/* Анимация мягкого движения линии */
+@keyframes meshMove {
+    0% {
+        d: path("M0 300 Q 200 250 400 300 T 800 300");
+    }
+    50% {
+        d: path("M0 300 Q 200 350 400 280 T 800 330");
+    }
+    100% {
+        d: path("M0 300 Q 200 250 400 300 T 800 300");
+    }
+}
+
+#meshPath {
+    animation: meshMove 8s ease-in-out infinite;
+}
+
+/* Цветовая нежная подсветка */
+.mesh-svg path {
+    stroke: url(#gradMesh);
+}
+
+/* Градиент для сетки */
+.mesh-svg {
+    position: absolute;
+}
+
+.mesh-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        at 70% 40%,
+        rgba(255,120,200,0.22),
+        rgba(0,0,0,0)
+    );
+}
