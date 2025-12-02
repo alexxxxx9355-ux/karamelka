@@ -351,14 +351,15 @@ function resize() {
 resize();
 window.addEventListener("resize", resize);
 
-// Мягкие параметры
-const POINTS = 14;           // было 22
-const LAYERS = 1;            // было 2
-const MAX_DIST = 0.18;       // меньше связей
-const SPEED = 0.00035;       // плавнее, легче
+// Оптимальные параметры
+const POINTS = 18;
+const MAX_DIST = 0.22;
+const SPEED = 0.00035;
 
-const COLOR = "rgba(255,180,220,0.12)";
-const GLOW  = "rgba(255,160,220,0.15)";
+// Более заметные, но мягкие цвета
+const LINE_COLOR = "rgba(255,160,220,0.25)";
+const POINT_COLOR = "rgba(255,200,230,0.55)";
+const GLOW_COLOR  = "rgba(255,150,220,0.35)";
 
 let mouseX = 0, mouseY = 0;
 window.addEventListener("mousemove", (e) => {
@@ -380,43 +381,45 @@ for (let i = 0; i < POINTS; i++) {
 function draw(t) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const px = (mouseX - 0.5) * 0.03 * canvas.width;
-    const py = (mouseY - 0.5) * 0.03 * canvas.height;
+    const px = (mouseX - 0.5) * 0.04 * canvas.width;
+    const py = (mouseY - 0.5) * 0.04 * canvas.height;
 
-    // Перебор точек
     for (let i = 0; i < points.length; i++) {
         const p1 = points[i];
 
-        const drift = Math.sin(t * SPEED + i) * 0.008;
+        const drift = Math.sin(t * SPEED + i) * 0.01;
 
         const x1 = (p1.baseX + drift) * canvas.width + px;
         const y1 = (p1.baseY + drift) * canvas.height + py;
 
-        // Мягкий узел
+        // Узлы
         ctx.beginPath();
-        ctx.fillStyle = GLOW;
-        ctx.arc(x1, y1, 1.7, 0, Math.PI * 2);
+        ctx.fillStyle = POINT_COLOR;
+        ctx.arc(x1, y1, 2.2, 0, Math.PI * 2);
         ctx.fill();
 
-        // Связи
+        // Лёгкое свечение точек
+        ctx.beginPath();
+        ctx.fillStyle = GLOW_COLOR;
+        ctx.arc(x1, y1, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Линии между узлами
         for (let j = i + 1; j < points.length; j++) {
             const p2 = points[j];
-
             const dist = Math.hypot(p2.baseX - p1.baseX, p2.baseY - p1.baseY);
+
             if (dist < MAX_DIST) {
                 const x2 = (p2.baseX + drift) * canvas.width + px;
                 const y2 = (p2.baseY + drift) * canvas.height + py;
 
-                ctx.strokeStyle = COLOR;
-                ctx.lineWidth = 0.5;
-                ctx.globalAlpha = 0.3;
+                ctx.strokeStyle = LINE_COLOR;
+                ctx.lineWidth = 0.7;
 
                 ctx.beginPath();
                 ctx.moveTo(x1, y1);
                 ctx.lineTo(x2, y2);
                 ctx.stroke();
-
-                ctx.globalAlpha = 1;
             }
         }
     }
@@ -435,6 +438,7 @@ animate();
 
 </body>
 </html>
+
 
 
 
