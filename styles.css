@@ -1,4 +1,6 @@
-/* Базовые настройки */
+/* ================================
+   БАЗОВЫЕ НАСТРОЙКИ
+================================ */
 * {
     margin: 0;
     padding: 0;
@@ -11,22 +13,26 @@ body {
     color: #fff;
     line-height: 1.6;
     overflow-x: hidden;
-    padding-bottom: 80px;
+    padding-top: 90px; /* чтобы липкая шапка не перекрывала */
 }
 
-/* Контейнер */
+/* ================================
+   КОНТЕЙНЕР
+================================ */
 .container {
     max-width: 1350px;
     margin: 0 auto;
     padding: 0 40px;
 }
 
-/* Анимированный фон */
+/* ================================
+   АНИМИРОВАННЫЙ ФОН
+================================ */
 .background-anim {
     position: fixed;
     inset: 0;
     overflow: hidden;
-    z-index: -1;
+    z-index: -2;
 }
 
 .blob {
@@ -37,6 +43,7 @@ body {
     filter: blur(140px);
     opacity: 0.45;
     animation: float 18s infinite ease-in-out;
+    transition: transform 0.3s ease-out;
 }
 
 .blob1 {
@@ -63,10 +70,29 @@ body {
     100% { transform: translate(0,0) scale(1); }
 }
 
-/* HEADER */
+/* ================================
+   ЛИПКАЯ СТЕКЛЯННАЯ ШАПКА
+================================ */
 .header {
-    padding: 24px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    background: rgba(15,15,20,0.45);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+
+    transition: background 0.4s ease, padding 0.3s ease;
+    padding: 20px 0;
 }
+
+.header.scrolled {
+    background: rgba(15,15,20,0.75);
+    padding: 10px 0;
+}
+
 .header-inner {
     display: flex;
     justify-content: space-between;
@@ -78,13 +104,17 @@ body {
     text-decoration: none;
     color: #ddd;
     font-size: 14px;
-    transition: 0.3s;
-}
-.header nav a:hover {
-    color: #fff;
+    transition: 0.25s ease;
 }
 
-/* HERO */
+.header nav a:hover {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255,255,255,0.7);
+}
+
+/* ================================
+   HERO
+================================ */
 .hero {
     padding: 100px 0 120px;
 }
@@ -118,7 +148,10 @@ h1 {
     margin-bottom: 28px;
 }
 
-.hero-buttons .btn {
+/* ================================
+   КНОПКИ
+================================ */
+.btn {
     display: inline-block;
     padding: 14px 22px;
     border-radius: 12px;
@@ -126,19 +159,31 @@ h1 {
     text-decoration: none;
     margin-right: 12px;
     font-size: 15px;
+    transition: 0.25s ease;
 }
 
 .primary {
     background: linear-gradient(90deg, #ff4da0, #ffae47);
     color: #000;
+    box-shadow: 0 0 14px rgba(255,120,120,0.35);
+}
+.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 24px rgba(255,120,120,0.7);
 }
 
 .secondary {
     border: 1px solid rgba(255,255,255,0.3);
     color: #fff;
 }
+.secondary:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-3px);
+}
 
-/* СЕКЦИИ */
+/* ================================
+   СЕКЦИИ
+================================ */
 .section {
     padding: 80px 0;
 }
@@ -153,7 +198,9 @@ h1 {
     margin-bottom: 32px;
 }
 
-/* КАРТОЧКИ */
+/* ================================
+   КАРТОЧКИ
+================================ */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -163,20 +210,24 @@ h1 {
 .card {
     padding: 24px;
     border-radius: 16px;
+    transition: 0.3s ease;
 }
 
 .glass {
     background: rgba(255,255,255,0.07);
     backdrop-filter: blur(18px);
     border: 1px solid rgba(255,255,255,0.12);
-    transition: 0.3s;
-}
-.glass:hover {
-    background: rgba(255,255,255,0.12);
-    transform: translateY(-4px);
 }
 
-/* ПРЕМИУМ */
+.glass:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+/* ================================
+   ПРЕМИУМ
+================================ */
 .premium-box {
     padding: 30px;
     border-radius: 18px;
@@ -188,23 +239,33 @@ h1 {
     font-size: 17px;
 }
 
-/* ДОКУМЕНТЫ */
+/* ================================
+   ДОКУМЕНТЫ
+================================ */
 .legal-links a {
     display: inline-block;
     margin-right: 20px;
     color: #ffae47;
     text-decoration: none;
     font-size: 15px;
+    transition: 0.2s;
+}
+.legal-links a:hover {
+    color: #ffd38c;
 }
 
-/* FOOTER */
+/* ================================
+   ФУТЕР
+================================ */
 .footer {
     padding: 40px 0;
     opacity: 0.6;
     font-size: 14px;
 }
 
-/* АНИМАЦИЯ ПОЯВЛЕНИЯ */
+/* ================================
+   АНИМАЦИИ ПОЯВЛЕНИЯ
+================================ */
 .fade {
     opacity: 0;
     transform: translateY(24px);
