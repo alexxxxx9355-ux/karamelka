@@ -143,6 +143,27 @@
         © 2025 Помощник Карамелька · Все права защищены
     </div>
 </footer>
+    
+<script>
+// Липкая шапка при скролле
+window.addEventListener("scroll", () => {
+    const header = document.querySelector(".header");
+    if (window.scrollY > 40) header.classList.add("scrolled");
+    else header.classList.remove("scrolled");
+});
+
+// Параллакс фона
+document.addEventListener("mousemove", (e) => {
+    const blobs = document.querySelectorAll(".blob");
+    blobs.forEach((blob, i) => {
+        const speed = (i + 1) * 0.01;
+        const x = (window.innerWidth / 2 - e.clientX) * speed;
+        const y = (window.innerHeight / 2 - e.clientY) * speed;
+        blob.style.transform = `translate(${x}px, ${y}px)`;
+    });
+});
+</script>
 
 </body>
 </html>
+
