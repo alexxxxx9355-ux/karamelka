@@ -1,6 +1,7 @@
 /* ================================
-   БАЗОВЫЕ НАСТРОЙКИ
+   БАЗА
 ================================ */
+
 * {
     margin: 0;
     padding: 0;
@@ -13,26 +14,31 @@ body {
     color: #fff;
     line-height: 1.6;
     overflow-x: hidden;
-    padding-top: 90px; /* чтобы липкая шапка не перекрывала */
+    padding-top: 90px; /* для липкой шапки */
+    -webkit-font-smoothing: antialiased;
 }
+
 
 /* ================================
    КОНТЕЙНЕР
 ================================ */
+
 .container {
     max-width: 1350px;
     margin: 0 auto;
     padding: 0 40px;
 }
 
+
 /* ================================
-   АНИМИРОВАННЫЙ ФОН
+   АНМИИРОВАННЫЙ ФОН
 ================================ */
+
 .background-anim {
     position: fixed;
     inset: 0;
     overflow: hidden;
-    z-index: -2;
+    z-index: -3;
 }
 
 .blob {
@@ -43,6 +49,7 @@ body {
     filter: blur(140px);
     opacity: 0.45;
     animation: float 18s infinite ease-in-out;
+    will-change: transform;
     transition: transform 0.3s ease-out;
 }
 
@@ -53,7 +60,7 @@ body {
 }
 .blob2 {
     background: #ffae47;
-    bottom: -200px;
+    bottom: -220px;
     right: -200px;
     animation-duration: 22s;
 }
@@ -61,7 +68,7 @@ body {
     background: #8f6bff;
     top: 40%;
     left: 60%;
-    animation-duration: 25s;
+    animation-duration: 26s;
 }
 
 @keyframes float {
@@ -70,26 +77,28 @@ body {
     100% { transform: translate(0,0) scale(1); }
 }
 
+
 /* ================================
-   ЛИПКАЯ СТЕКЛЯННАЯ ШАПКА
+   ШАПКА (СТЕКЛО + LUX FEEL)
 ================================ */
+
 .header {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 50;
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    background: rgba(15,15,20,0.45);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: rgba(12, 12, 18, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 
-    transition: background 0.4s ease, padding 0.3s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
     padding: 20px 0;
+    transition: 0.35s ease;
 }
 
 .header.scrolled {
-    background: rgba(15,15,20,0.75);
+    background: rgba(12, 12, 18, 0.75);
     padding: 10px 0;
 }
 
@@ -100,38 +109,109 @@ body {
 }
 
 .header nav a {
-    margin-left: 24px;
+    margin-left: 26px;
     text-decoration: none;
     color: #ddd;
-    font-size: 14px;
+    font-size: 15px;
     transition: 0.25s ease;
 }
 
 .header nav a:hover {
     color: #fff;
-    text-shadow: 0 0 8px rgba(255,255,255,0.7);
+    text-shadow: 0 0 10px rgba(255,255,255,0.6);
 }
 
+
 /* ================================
-   HERO
+   БУРГЕР-МЕНЮ
 ================================ */
+
+.burger {
+    display: none;
+    cursor: pointer;
+    width: 28px;
+}
+
+.burger span {
+    display: block;
+    height: 3px;
+    background: #fff;
+    margin: 5px 0;
+    border-radius: 4px;
+    transition: 0.3s ease;
+}
+
+.burger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.burger.active span:nth-child(2) {
+    opacity: 0;
+}
+.burger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
+/* ================================
+   МОБИЛЬНОЕ МЕНЮ
+================================ */
+
+.mobile-menu {
+    display: none;
+    background: rgba(12,12,18,0.85);
+    backdrop-filter: blur(12px);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    flex-direction: column;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+}
+
+.mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-menu a {
+    display: block;
+    padding: 14px 0;
+    text-decoration: none;
+    color: #eee;
+    font-size: 17px;
+    transition: 0.25s;
+}
+
+.mobile-menu a:hover {
+    color: #fff;
+}
+
+
+/* ================================
+   HERO BLOCK
+================================ */
+
 .hero {
-    padding: 100px 0 120px;
+    padding: 110px 0 130px;
 }
 
 .label {
     display: inline-block;
     padding: 6px 14px;
-    font-size: 13px;
     border-radius: 8px;
-    background: rgba(255,255,255,0.1);
-    margin-bottom: 16px;
+    font-size: 13px;
+    background: rgba(255,255,255,0.10);
+    margin-bottom: 18px;
 }
 
 h1 {
-    font-size: 48px;
+    font-size: 50px;
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.18;
     margin-bottom: 18px;
     max-width: 900px;
 }
@@ -145,21 +225,23 @@ h1 {
 .hero-text {
     max-width: 650px;
     opacity: 0.9;
-    margin-bottom: 28px;
+    margin-bottom: 30px;
+    font-size: 18px;
 }
 
 /* ================================
    КНОПКИ
 ================================ */
+
 .btn {
     display: inline-block;
     padding: 14px 22px;
     border-radius: 12px;
-    font-weight: 600;
-    text-decoration: none;
-    margin-right: 12px;
     font-size: 15px;
-    transition: 0.25s ease;
+    font-weight: 600;
+    margin-right: 12px;
+    transition: 0.28s ease;
+    text-decoration: none;
 }
 
 .primary {
@@ -167,50 +249,67 @@ h1 {
     color: #000;
     box-shadow: 0 0 14px rgba(255,120,120,0.35);
 }
+
 .primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 0 24px rgba(255,120,120,0.7);
 }
 
 .secondary {
-    border: 1px solid rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.28);
     color: #fff;
 }
+
 .secondary:hover {
     background: rgba(255,255,255,0.12);
     transform: translateY(-3px);
 }
 
+
 /* ================================
    СЕКЦИИ
 ================================ */
+
 .section {
     padding: 80px 0;
 }
 
 .section h2 {
-    font-size: 32px;
+    font-size: 34px;
     margin-bottom: 12px;
+    position: relative;
+}
+
+.title-anim {
+    animation: titleGlow 4s ease infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% { text-shadow: 0 0 0px rgba(255,150,150,0.0); }
+    100% { text-shadow: 0 0 22px rgba(255,150,150,0.35); }
 }
 
 .section-subtitle {
     opacity: 0.8;
     margin-bottom: 32px;
+    font-size: 18px;
 }
+
 
 /* ================================
    КАРТОЧКИ
 ================================ */
+
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 22px;
+    gap: 24px;
 }
 
 .card {
-    padding: 24px;
-    border-radius: 16px;
-    transition: 0.3s ease;
+    padding: 26px;
+    border-radius: 18px;
+    transition: 0.35s ease;
 }
 
 .glass {
@@ -220,17 +319,19 @@ h1 {
 }
 
 .glass:hover {
+    transform: translateY(-7px) scale(1.025);
+    box-shadow: 0 10px 34px rgba(0,0,0,0.45);
     background: rgba(255,255,255,0.15);
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
 }
 
+
 /* ================================
-   ПРЕМИУМ
+   ПРЕМИУМ-БЛОК
 ================================ */
+
 .premium-box {
-    padding: 30px;
-    border-radius: 18px;
+    padding: 32px;
+    border-radius: 20px;
 }
 
 .premium-box ul li {
@@ -239,42 +340,113 @@ h1 {
     font-size: 17px;
 }
 
+
 /* ================================
    ДОКУМЕНТЫ
 ================================ */
+
 .legal-links a {
     display: inline-block;
     margin-right: 20px;
     color: #ffae47;
     text-decoration: none;
     font-size: 15px;
-    transition: 0.2s;
+    transition: 0.2s ease;
 }
+
 .legal-links a:hover {
-    color: #ffd38c;
+    color: #ffd9a1;
 }
+
 
 /* ================================
    ФУТЕР
 ================================ */
+
 .footer {
     padding: 40px 0;
     opacity: 0.6;
     font-size: 14px;
 }
 
+
 /* ================================
-   АНИМАЦИИ ПОЯВЛЕНИЯ
+   SCROLL REVEAL
 ================================ */
-.fade {
+
+.reveal {
     opacity: 0;
-    transform: translateY(24px);
-    animation: fadeIn 0.9s ease forwards;
+    transform: translateY(40px);
+    transition: 0.8s ease;
 }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 0.8s ease;
+}
+
+.reveal-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ================================
+   АДАПТИВ
+================================ */
+
+@media (max-width: 1020px) {
+    h1 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .burger {
+        display: block;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .hero {
+        padding: 60px 0 80px;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    .container {
+        padding: 0 20px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 12px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
     }
 }
