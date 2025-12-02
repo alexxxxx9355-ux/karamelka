@@ -335,6 +335,11 @@ document.querySelector(".burger").onclick = function () {
     
 <canvas id="aiBackground"></canvas>
 
+
+
+
+
+
 <script>
 const canvas = document.getElementById("aiBackground");
 const ctx = canvas.getContext("2d");
@@ -346,20 +351,18 @@ function resize() {
 resize();
 window.addEventListener("resize", resize);
 
-// параметры
-const POINTS = 28;
-const LAYERS = 3;
+// Настройки для мягкого режима
+const POINTS = 22;
+const LAYERS = 2;
 
 const COLORS = [
-    "rgba(255,160,220,0.5)",
-    "rgba(180,130,255,0.45)",
-    "rgba(255,200,150,0.35)"
+    "rgba(255,180,220,0.12)",
+    "rgba(170,130,255,0.10)"
 ];
 
 const GLOWS = [
-    "rgba(255,160,220,0.25)",
-    "rgba(140,100,255,0.20)",
-    "rgba(255,180,150,0.18)"
+    "rgba(255,160,220,0.18)",
+    "rgba(150,120,255,0.15)"
 ];
 
 let mouseX = 0, mouseY = 0;
@@ -368,9 +371,7 @@ window.addEventListener("mousemove", e => {
     mouseY = e.clientY / window.innerHeight;
 });
 
-let t = 0;
-
-// слои точек
+// Создаем точки
 const layers = [];
 for (let l = 0; l < LAYERS; l++) {
     const pts = [];
@@ -385,14 +386,14 @@ for (let l = 0; l < LAYERS; l++) {
     layers.push(pts);
 }
 
-// частицы боке
+// Боке-частицы (мягкие)
 const particles = [];
-for (let i = 0; i < 60; i++) {
+for (let i = 0; i < 30; i++) {
     particles.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        r: Math.random() * 3 + 0.5,
-        s: Math.random() * 0.4 + 0.1
+        r: Math.random() * 2 + 0.5,
+        s: Math.random() * 0.25 + 0.05
     });
 }
 
@@ -402,80 +403,52 @@ function drawParticles() {
         if (p.y < -10) p.y = window.innerHeight + 10;
 
         ctx.beginPath();
-        ctx.fillStyle = "rgba(255,180,220,0.35)";
-        ctx.filter = "blur(2px)";
+        ctx.fillStyle = "rgba(255,200,235,0.25)";
+        ctx.filter = "blur(3px)";
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
         ctx.filter = "none";
     }
 }
 
-function drawGlowBlobs() {
-    const gradients = [
-        ctx.createRadialGradient(
-            canvas.width * 0.7, canvas.height * 0.3, 0,
-            canvas.width * 0.7, canvas.height * 0.3, 400
-        ),
-        ctx.createRadialGradient(
-            canvas.width * 0.3, canvas.height * 0.6, 0,
-            canvas.width * 0.3, canvas.height * 0.6, 350
-        )
-    ];
+function drawLayer(points, color, glow, index, t) {
+    const px = (mouseX - 0.5) * (index * 20);
+    const py = (mouseY - 0.5) * (index * 20);
 
-    gradients[0].addColorStop(0, "rgba(255,120,200,0.18)");
-    gradients[0].addColorStop(1, "transparent");
-
-    gradients[1].addColorStop(0, "rgba(160,120,255,0.15)");
-    gradients[1].addColorStop(1, "transparent");
-
-    ctx.globalCompositeOperation = "lighter";
-    ctx.fillStyle = gradients[0];
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    ctx.fillStyle = gradients[1];
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.globalCompositeOperation = "source-over";
-}
-
-function drawLayer(points, color, glow, index) {
-    const px = (mouseX - 0.5) * (index * 40);
-    const py = (mouseY - 0.5) * (index * 40);
-
+    ctx.lineWidth = 0.6;
     ctx.strokeStyle = color;
-    ctx.lineWidth = 1;
 
     for (let i = 0; i < points.length; i++) {
         const p1 = points[i];
 
-        const breath = Math.sin(t * 0.001 + i * 0.3) * 0.015;
+        const drift = Math.sin(t * 0.0006 + i * 0.4) * 0.01;
 
-        const x1 = (p1.baseX + breath + px / canvas.width) * canvas.width;
-        const y1 = (p1.baseY + breath + py / canvas.height) * canvas.height;
+        const x1 = (p1.baseX + drift + px / canvas.width) * canvas.width;
+        const y1 = (p1.baseY + drift + py / canvas.height) * canvas.height;
 
-        // узел glow
+        // Узел (мягкий)
         ctx.beginPath();
         ctx.fillStyle = glow;
-        ctx.filter = "blur(3px)";
-        ctx.arc(x1, y1, 4, 0, Math.PI * 2);
+        ctx.filter = "blur(2px)";
+        ctx.arc(x1, y1, 2.2, 0, Math.PI * 2);
         ctx.fill();
         ctx.filter = "none";
 
-        // соединения
+        // Линии
         for (let j = i + 1; j < points.length; j++) {
             const p2 = points[j];
-            const dist = Math.hypot(
-                (p2.baseX - p1.baseX),
-                (p2.baseY - p1.baseY)
-            );
 
-            if (dist < 0.17) {
-                const x2 = (p2.baseX + breath + px / canvas.width) * canvas.width;
-                const y2 = (p2.baseY + breath + py / canvas.height) * canvas.height;
+            const dist = Math.hypot(p2.baseX - p1.baseX, p2.baseY - p1.baseY);
+            if (dist < 0.14) {
+                const x2 = (p2.baseX + drift + px / canvas.width) * canvas.width;
+                const y2 = (p2.baseY + drift + py / canvas.height) * canvas.height;
 
+                ctx.globalAlpha = 0.35;
                 ctx.beginPath();
                 ctx.moveTo(x1, y1);
                 ctx.lineTo(x2, y2);
                 ctx.stroke();
+                ctx.globalAlpha = 1;
             }
         }
     }
@@ -484,22 +457,24 @@ function drawLayer(points, color, glow, index) {
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    drawGlowBlobs();   // большие мягкие пятна
-    drawParticles();   // боке
+    drawParticles();
+
+    const t = performance.now();
     for (let l = 0; l < LAYERS; l++) {
-        drawLayer(layers[l], COLORS[l], GLOWS[l], l);
+        drawLayer(layers[l], COLORS[l], GLOWS[l], l, t);
     }
 
-    t += 1.2;
     requestAnimationFrame(animate);
 }
 
 animate();
 </script>
 
+    
 
 </body>
 </html>
+
 
 
 
