@@ -652,7 +652,7 @@ h1 {
         align-items: flex-start;
     }
 }
-#meshCanvas {
+#aiMesh {
     position: absolute;
     top: 0;
     right: 0;
@@ -661,5 +661,6 @@ h1 {
     z-index: -1;
     opacity: 0.55;
     pointer-events: none;
+    filter: blur(0.5px);
     mix-blend-mode: screen;
 }
