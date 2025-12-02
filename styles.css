@@ -677,6 +677,32 @@ body {
 
 
 
+
+
+
+.hero {
+    text-align: center;
+}
+
+.hero-text,
+.hero-footnote {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+
+
+
+
+
+
+
 /* ================================
    ПОФИКШЕННЫЙ ФОН — ТЁМНЫЙ И НЕЖНЫЙ
 ================================ */
