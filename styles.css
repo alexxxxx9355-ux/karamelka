@@ -1,4 +1,4 @@
-/* Общие настройки */
+/* Базовые настройки */
 * {
     margin: 0;
     padding: 0;
@@ -12,6 +12,13 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     padding-bottom: 80px;
+}
+
+/* Контейнер */
+.container {
+    max-width: 1350px;
+    margin: 0 auto;
+    padding: 0 40px;
 }
 
 /* Анимированный фон */
@@ -56,9 +63,11 @@ body {
     100% { transform: translate(0,0) scale(1); }
 }
 
-/* Шапка */
+/* HEADER */
 .header {
-    padding: 24px 60px;
+    padding: 24px 0;
+}
+.header-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -71,15 +80,13 @@ body {
     font-size: 14px;
     transition: 0.3s;
 }
-
 .header nav a:hover {
     color: #fff;
 }
 
 /* HERO */
 .hero {
-    padding: 140px 60px 120px;
-    max-width: 900px;
+    padding: 100px 0 120px;
 }
 
 .label {
@@ -96,6 +103,7 @@ h1 {
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 18px;
+    max-width: 900px;
 }
 
 .grad {
@@ -117,6 +125,7 @@ h1 {
     font-weight: 600;
     text-decoration: none;
     margin-right: 12px;
+    font-size: 15px;
 }
 
 .primary {
@@ -126,11 +135,12 @@ h1 {
 
 .secondary {
     border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
 }
 
-/* Секции */
+/* СЕКЦИИ */
 .section {
-    padding: 80px 60px;
+    padding: 80px 0;
 }
 
 .section h2 {
@@ -143,7 +153,7 @@ h1 {
     margin-bottom: 32px;
 }
 
-/* Карточки */
+/* КАРТОЧКИ */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -161,43 +171,44 @@ h1 {
     border: 1px solid rgba(255,255,255,0.12);
     transition: 0.3s;
 }
-
 .glass:hover {
     background: rgba(255,255,255,0.12);
     transform: translateY(-4px);
 }
 
-/* Премиум */
+/* ПРЕМИУМ */
 .premium-box {
     padding: 30px;
     border-radius: 18px;
 }
 
 .premium-box ul li {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     list-style: none;
+    font-size: 17px;
 }
 
-/* Документы */
+/* ДОКУМЕНТЫ */
 .legal-links a {
     display: inline-block;
     margin-right: 20px;
     color: #ffae47;
     text-decoration: none;
+    font-size: 15px;
 }
 
-/* Футер */
+/* FOOTER */
 .footer {
-    padding: 40px 60px;
+    padding: 40px 0;
     opacity: 0.6;
     font-size: 14px;
 }
 
-/* Анимация появления */
+/* АНИМАЦИЯ ПОЯВЛЕНИЯ */
 .fade {
     opacity: 0;
     transform: translateY(24px);
-    animation: fadeIn 0.8s ease forwards;
+    animation: fadeIn 0.9s ease forwards;
 }
 
 @keyframes fadeIn {
