@@ -330,26 +330,36 @@ document.querySelector(".burger").onclick = function () {
     this.classList.toggle("active");
 };
 </script>
-<canvas id="aiMesh"></canvas>
+
+
+    
+<canvas id="aiBackground"></canvas>
+
 <script>
-const canvas = document.getElementById("aiMesh");
+const canvas = document.getElementById("aiBackground");
 const ctx = canvas.getContext("2d");
 
 function resize() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 resize();
 window.addEventListener("resize", resize);
 
 // параметры
-const POINTS = 26; 
+const POINTS = 28;
 const LAYERS = 3;
-const SPEEDS = [0.4, 0.7, 1.1];
+
 const COLORS = [
-    "rgba(255,130,200,0.55)",
-    "rgba(200,130,255,0.4)",
-    "rgba(255,180,150,0.35)"
+    "rgba(255,160,220,0.5)",
+    "rgba(180,130,255,0.45)",
+    "rgba(255,200,150,0.35)"
+];
+
+const GLOWS = [
+    "rgba(255,160,220,0.25)",
+    "rgba(140,100,255,0.20)",
+    "rgba(255,180,150,0.18)"
 ];
 
 let mouseX = 0, mouseY = 0;
@@ -359,9 +369,9 @@ window.addEventListener("mousemove", e => {
 });
 
 let t = 0;
-const layers = [];
 
-// создаём сетку слоёв
+// слои точек
+const layers = [];
 for (let l = 0; l < LAYERS; l++) {
     const pts = [];
     for (let i = 0; i < POINTS; i++) {
@@ -375,30 +385,80 @@ for (let l = 0; l < LAYERS; l++) {
     layers.push(pts);
 }
 
-function drawLayer(points, color, speed, index) {
+// частицы боке
+const particles = [];
+for (let i = 0; i < 60; i++) {
+    particles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 3 + 0.5,
+        s: Math.random() * 0.4 + 0.1
+    });
+}
+
+function drawParticles() {
+    for (let p of particles) {
+        p.y -= p.s;
+        if (p.y < -10) p.y = window.innerHeight + 10;
+
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(255,180,220,0.35)";
+        ctx.filter = "blur(2px)";
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.filter = "none";
+    }
+}
+
+function drawGlowBlobs() {
+    const gradients = [
+        ctx.createRadialGradient(
+            canvas.width * 0.7, canvas.height * 0.3, 0,
+            canvas.width * 0.7, canvas.height * 0.3, 400
+        ),
+        ctx.createRadialGradient(
+            canvas.width * 0.3, canvas.height * 0.6, 0,
+            canvas.width * 0.3, canvas.height * 0.6, 350
+        )
+    ];
+
+    gradients[0].addColorStop(0, "rgba(255,120,200,0.18)");
+    gradients[0].addColorStop(1, "transparent");
+
+    gradients[1].addColorStop(0, "rgba(160,120,255,0.15)");
+    gradients[1].addColorStop(1, "transparent");
+
+    ctx.globalCompositeOperation = "lighter";
+    ctx.fillStyle = gradients[0];
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle = gradients[1];
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.globalCompositeOperation = "source-over";
+}
+
+function drawLayer(points, color, glow, index) {
+    const px = (mouseX - 0.5) * (index * 40);
+    const py = (mouseY - 0.5) * (index * 40);
+
     ctx.strokeStyle = color;
-    ctx.lineWidth = 1.1;
+    ctx.lineWidth = 1;
 
-    // лёгкий параллакс
-    const px = (mouseX - 0.5) * (index * 15);
-    const py = (mouseY - 0.5) * (index * 15);
-
-    // соединяем узлы
     for (let i = 0; i < points.length; i++) {
         const p1 = points[i];
 
-        // дыхание
-        const breath = Math.sin(t * 0.002 + i) * 0.015;
+        const breath = Math.sin(t * 0.001 + i * 0.3) * 0.015;
 
-        // координаты
         const x1 = (p1.baseX + breath + px / canvas.width) * canvas.width;
         const y1 = (p1.baseY + breath + py / canvas.height) * canvas.height;
 
-        // рисуем сам узел
+        // узел glow
         ctx.beginPath();
-        ctx.fillStyle = color.replace("0.55", "0.75");
-        ctx.arc(x1, y1, 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = glow;
+        ctx.filter = "blur(3px)";
+        ctx.arc(x1, y1, 4, 0, Math.PI * 2);
         ctx.fill();
+        ctx.filter = "none";
 
         // соединения
         for (let j = i + 1; j < points.length; j++) {
@@ -424,11 +484,13 @@ function drawLayer(points, color, speed, index) {
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    drawGlowBlobs();   // большие мягкие пятна
+    drawParticles();   // боке
     for (let l = 0; l < LAYERS; l++) {
-        drawLayer(layers[l], COLORS[l], SPEEDS[l], l);
+        drawLayer(layers[l], COLORS[l], GLOWS[l], l);
     }
 
-    t += 1.4;
+    t += 1.2;
     requestAnimationFrame(animate);
 }
 
@@ -438,6 +500,7 @@ animate();
 
 </body>
 </html>
+
 
 
 
