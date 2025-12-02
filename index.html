@@ -330,9 +330,9 @@ document.querySelector(".burger").onclick = function () {
     this.classList.toggle("active");
 };
 </script>
-<canvas id="meshCanvas"></canvas>
+<canvas id="aiMesh"></canvas>
 <script>
-const canvas = document.getElementById("meshCanvas");
+const canvas = document.getElementById("aiMesh");
 const ctx = canvas.getContext("2d");
 
 function resize() {
@@ -342,33 +342,102 @@ function resize() {
 resize();
 window.addEventListener("resize", resize);
 
+// параметры
+const POINTS = 26; 
+const LAYERS = 3;
+const SPEEDS = [0.4, 0.7, 1.1];
+const COLORS = [
+    "rgba(255,130,200,0.55)",
+    "rgba(200,130,255,0.4)",
+    "rgba(255,180,150,0.35)"
+];
+
+let mouseX = 0, mouseY = 0;
+window.addEventListener("mousemove", e => {
+    mouseX = e.clientX / window.innerWidth;
+    mouseY = e.clientY / window.innerHeight;
+});
+
 let t = 0;
+const layers = [];
 
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.lineWidth = 1.4;
-    ctx.strokeStyle = "rgba(255,150,220,0.35)";
+// создаём сетку слоёв
+for (let l = 0; l < LAYERS; l++) {
+    const pts = [];
+    for (let i = 0; i < POINTS; i++) {
+        pts.push({
+            x: Math.random(),
+            y: Math.random(),
+            baseX: Math.random(),
+            baseY: Math.random()
+        });
+    }
+    layers.push(pts);
+}
 
-    for (let i = 0; i < 10; i++) {
+function drawLayer(points, color, speed, index) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.1;
+
+    // лёгкий параллакс
+    const px = (mouseX - 0.5) * (index * 15);
+    const py = (mouseY - 0.5) * (index * 15);
+
+    // соединяем узлы
+    for (let i = 0; i < points.length; i++) {
+        const p1 = points[i];
+
+        // дыхание
+        const breath = Math.sin(t * 0.002 + i) * 0.015;
+
+        // координаты
+        const x1 = (p1.baseX + breath + px / canvas.width) * canvas.width;
+        const y1 = (p1.baseY + breath + py / canvas.height) * canvas.height;
+
+        // рисуем сам узел
         ctx.beginPath();
-        for (let x = 0; x < canvas.width; x += 20) {
-            const y =
-                Math.sin(x * 0.01 + i * 0.4 + t * 0.02) * 25 +
-                Math.cos(x * 0.008 + i * 0.6 + t * 0.015) * 20 +
-                canvas.height / 2;
-            ctx.lineTo(x, y);
+        ctx.fillStyle = color.replace("0.55", "0.75");
+        ctx.arc(x1, y1, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // соединения
+        for (let j = i + 1; j < points.length; j++) {
+            const p2 = points[j];
+            const dist = Math.hypot(
+                (p2.baseX - p1.baseX),
+                (p2.baseY - p1.baseY)
+            );
+
+            if (dist < 0.17) {
+                const x2 = (p2.baseX + breath + px / canvas.width) * canvas.width;
+                const y2 = (p2.baseY + breath + py / canvas.height) * canvas.height;
+
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
         }
-        ctx.stroke();
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let l = 0; l < LAYERS; l++) {
+        drawLayer(layers[l], COLORS[l], SPEEDS[l], l);
     }
 
-    t += 1;
-    requestAnimationFrame(draw);
+    t += 1.4;
+    requestAnimationFrame(animate);
 }
-draw();
+
+animate();
 </script>
 
 
 </body>
 </html>
+
 
 
