@@ -351,129 +351,91 @@ function resize() {
 resize();
 window.addEventListener("resize", resize);
 
-// Настройки для мягкого режима
-const POINTS = 22;
-const LAYERS = 2;
+// Мягкие параметры
+const POINTS = 14;           // было 22
+const LAYERS = 1;            // было 2
+const MAX_DIST = 0.18;       // меньше связей
+const SPEED = 0.00035;       // плавнее, легче
 
-const COLORS = [
-    "rgba(255,180,220,0.12)",
-    "rgba(170,130,255,0.10)"
-];
-
-const GLOWS = [
-    "rgba(255,160,220,0.18)",
-    "rgba(150,120,255,0.15)"
-];
+const COLOR = "rgba(255,180,220,0.12)";
+const GLOW  = "rgba(255,160,220,0.15)";
 
 let mouseX = 0, mouseY = 0;
-window.addEventListener("mousemove", e => {
+window.addEventListener("mousemove", (e) => {
     mouseX = e.clientX / window.innerWidth;
     mouseY = e.clientY / window.innerHeight;
 });
 
-// Создаем точки
-const layers = [];
-for (let l = 0; l < LAYERS; l++) {
-    const pts = [];
-    for (let i = 0; i < POINTS; i++) {
-        pts.push({
-            x: Math.random(),
-            y: Math.random(),
-            baseX: Math.random(),
-            baseY: Math.random()
-        });
-    }
-    layers.push(pts);
-}
-
-// Боке-частицы (мягкие)
-const particles = [];
-for (let i = 0; i < 30; i++) {
-    particles.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        r: Math.random() * 2 + 0.5,
-        s: Math.random() * 0.25 + 0.05
+// Генерация точек
+let points = [];
+for (let i = 0; i < POINTS; i++) {
+    points.push({
+        x: Math.random(),
+        y: Math.random(),
+        baseX: Math.random(),
+        baseY: Math.random(),
     });
 }
 
-function drawParticles() {
-    for (let p of particles) {
-        p.y -= p.s;
-        if (p.y < -10) p.y = window.innerHeight + 10;
+function draw(t) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.beginPath();
-        ctx.fillStyle = "rgba(255,200,235,0.25)";
-        ctx.filter = "blur(3px)";
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.filter = "none";
-    }
-}
+    const px = (mouseX - 0.5) * 0.03 * canvas.width;
+    const py = (mouseY - 0.5) * 0.03 * canvas.height;
 
-function drawLayer(points, color, glow, index, t) {
-    const px = (mouseX - 0.5) * (index * 20);
-    const py = (mouseY - 0.5) * (index * 20);
-
-    ctx.lineWidth = 0.6;
-    ctx.strokeStyle = color;
-
+    // Перебор точек
     for (let i = 0; i < points.length; i++) {
         const p1 = points[i];
 
-        const drift = Math.sin(t * 0.0006 + i * 0.4) * 0.01;
+        const drift = Math.sin(t * SPEED + i) * 0.008;
 
-        const x1 = (p1.baseX + drift + px / canvas.width) * canvas.width;
-        const y1 = (p1.baseY + drift + py / canvas.height) * canvas.height;
+        const x1 = (p1.baseX + drift) * canvas.width + px;
+        const y1 = (p1.baseY + drift) * canvas.height + py;
 
-        // Узел (мягкий)
+        // Мягкий узел
         ctx.beginPath();
-        ctx.fillStyle = glow;
-        ctx.filter = "blur(2px)";
-        ctx.arc(x1, y1, 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = GLOW;
+        ctx.arc(x1, y1, 1.7, 0, Math.PI * 2);
         ctx.fill();
-        ctx.filter = "none";
 
-        // Линии
+        // Связи
         for (let j = i + 1; j < points.length; j++) {
             const p2 = points[j];
 
             const dist = Math.hypot(p2.baseX - p1.baseX, p2.baseY - p1.baseY);
-            if (dist < 0.14) {
-                const x2 = (p2.baseX + drift + px / canvas.width) * canvas.width;
-                const y2 = (p2.baseY + drift + py / canvas.height) * canvas.height;
+            if (dist < MAX_DIST) {
+                const x2 = (p2.baseX + drift) * canvas.width + px;
+                const y2 = (p2.baseY + drift) * canvas.height + py;
 
-                ctx.globalAlpha = 0.35;
+                ctx.strokeStyle = COLOR;
+                ctx.lineWidth = 0.5;
+                ctx.globalAlpha = 0.3;
+
                 ctx.beginPath();
                 ctx.moveTo(x1, y1);
                 ctx.lineTo(x2, y2);
                 ctx.stroke();
+
                 ctx.globalAlpha = 1;
             }
         }
     }
 }
 
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    drawParticles();
-
-    const t = performance.now();
-    for (let l = 0; l < LAYERS; l++) {
-        drawLayer(layers[l], COLORS[l], GLOWS[l], l, t);
-    }
-
+function animate(t) {
+    draw(t);
     requestAnimationFrame(animate);
 }
 
 animate();
 </script>
 
+
     
 
 </body>
 </html>
+
 
 
 
