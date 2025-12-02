@@ -652,15 +652,24 @@ h1 {
         align-items: flex-start;
     }
 }
-#aiMesh {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60%;
-    height: 100%;
-    z-index: -1;
+
+
+
+
+#aiBackground {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
     opacity: 0.55;
     pointer-events: none;
-    filter: blur(0.5px);
     mix-blend-mode: screen;
+    filter: blur(0.4px);
+}
+
+body {
+    background: #0d0d12;
+    position: relative;
+    z-index: 1;
 }
