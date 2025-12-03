@@ -623,20 +623,3 @@ body::before {
 
     opacity: 0.42;
 }
-
-
-.hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 140px 0 160px;
-    text-align: left;
-}
-
-.hero-center {
-    max-width: 680px;
-}
-
-.hero-buttons {
-    margin-top: 28px;
-}
