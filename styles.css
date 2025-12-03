@@ -1,47 +1,5 @@
 
 
-/* Центрируем весь hero-блок */
-.hero {
-    text-align: center;
-    max-width: 920px;
-    margin: 0 auto;
-}
-
-/* Центрируем текст */
-.hero-text {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Центрируем кнопки */
-.hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    margin-top: 25px;
-}
-
-/* Чтобы метка (label) была тоже посередине */
-.label {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ================================
    БАЗА
@@ -724,24 +682,62 @@ body {
 
 
 
-
 .hero {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
 }
 
-.hero-text,
-.hero-footnote {
-    margin-left: auto;
-    margin-right: auto;
+.hero-left {
+    flex: 1;
+    max-width: 650px;
 }
 
-.hero-buttons {
+.hero-right {
+    flex: 1;
+    position: relative;
     display: flex;
     justify-content: center;
-    gap: 14px;
+    align-items: center;
 }
 
+/* Картинка */
+.hero-image {
+    width: 90%;
+    max-width: 520px;
+    filter: drop-shadow(0 0 25px rgba(255, 120, 200, 0.25));
+    animation: floatImg 6s ease-in-out infinite;
+}
 
+@keyframes floatImg {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-16px); }
+    100% { transform: translateY(0); }
+}
+
+/* Плашка Karamelka AI */
+.ai-tag {
+    position: absolute;
+    top: -10px;
+    right: 40px;
+    background: rgba(255,255,255,0.14);
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 16px rgba(255,120,200,0.45);
+    animation: tagPulse 3s ease-in-out infinite;
+}
+
+@keyframes tagPulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
 
 
 
