@@ -682,68 +682,6 @@ body {
 
 
 
-.hero {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 60px;
-}
-
-.hero-left {
-    flex: 1;
-    max-width: 650px;
-}
-
-.hero-right {
-    flex: 1;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Картинка */
-.hero-image {
-    width: 90%;
-    max-width: 520px;
-    filter: drop-shadow(0 0 25px rgba(255, 120, 200, 0.25));
-    animation: floatImg 6s ease-in-out infinite;
-}
-
-@keyframes floatImg {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-16px); }
-    100% { transform: translateY(0); }
-}
-
-/* Плашка Karamelka AI */
-.ai-tag {
-    position: absolute;
-    top: -10px;
-    right: 40px;
-    background: rgba(255,255,255,0.14);
-    padding: 6px 14px;
-    border-radius: 12px;
-    font-size: 14px;
-    backdrop-filter: blur(10px);
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 0 16px rgba(255,120,200,0.45);
-    animation: tagPulse 3s ease-in-out infinite;
-}
-
-@keyframes tagPulse {
-    0% { opacity: 0.7; }
-    50% { opacity: 1; }
-    100% { opacity: 0.7; }
-}
-
-
-
-
-
-
 /* ================================
    ПОФИКШЕННЫЙ ФОН — ТЁМНЫЙ И НЕЖНЫЙ
 ================================ */
