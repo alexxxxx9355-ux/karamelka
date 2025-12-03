@@ -1,3 +1,6 @@
+
+
+
 /* ================================
    БАЗА
 ================================ */
@@ -48,6 +51,7 @@ body {
     opacity: 0.45;
     animation: float 18s infinite ease-in-out;
     will-change: transform;
+    transition: transform 0.3s ease-out;
 }
 
 .blob1 {
@@ -85,6 +89,7 @@ body {
     z-index: 50;
     background: rgba(12, 12, 18, 0.45);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255,255,255,0.06);
     padding: 20px 0;
     transition: 0.35s ease;
@@ -113,10 +118,6 @@ body {
     opacity: 0.7;
     margin-top: 2px;
 }
-
-/* ================================
-   МЕНЮ
-================================ */
 
 .menu a {
     margin-left: 26px;
@@ -199,57 +200,84 @@ body {
 }
 
 /* ================================
-   HERO — ФИНАЛЬНАЯ ПРАВИЛЬНАЯ ВЕРСИЯ
+   HERO
 ================================ */
 
-/* --- HERO блок, чистая версия --- */
-
 .hero {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 70px;
-    padding-bottom: 120px;
-    gap: 60px;
+    padding: 110px 0 130px;
 }
 
-.hero-left {
-    flex: 1;
-    max-width: 560px;
+.label {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    background: rgba(255,255,255,0.10);
+    margin-bottom: 18px;
 }
 
+h1 {
+    font-size: 50px;
+    font-weight: 800;
+    line-height: 1.18;
+    margin-bottom: 18px;
+    max-width: 900px;
+}
 
-/* Плашка справа */
-.ai-tag {
-    position: absolute;
-    top: -10px;
-    right: 30px;
-    background: rgba(255,255,255,0.12);
-    padding: 8px 18px;
-    border-radius: 12px;
+.grad {
+    background: linear-gradient(90deg, #ff4da0, #ffae47);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-text {
+    max-width: 650px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+
+.hero-footnote {
+    margin-top: 20px;
     font-size: 14px;
-    backdrop-filter: blur(12px);
-    color: #fff;
-    letter-spacing: 0.5px;
-}
-
-/* Плейсхолдер под картинку */
-.hero-image-wrapper {
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.05);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.hero-image {
-    width: 90%;
     opacity: 0.8;
 }
 
+/* ================================
+   КНОПКИ
+================================ */
 
+.btn {
+    display: inline-block;
+    padding: 14px 22px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-right: 12px;
+    transition: 0.28s ease;
+    text-decoration: none;
+}
+
+.primary {
+    background: linear-gradient(90deg, #ff4da0, #ffae47);
+    color: #000;
+    box-shadow: 0 0 14px rgba(255,120,120,0.35);
+}
+
+.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 24px rgba(255,120,120,0.7);
+}
+
+.secondary {
+    border: 1px solid rgba(255,255,255,0.28);
+    color: #fff;
+}
+
+.secondary:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-3px);
+}
 
 /* ================================
    СЕКЦИИ
@@ -270,7 +298,7 @@ body {
     font-size: 18px;
 }
 
-/* Заголовки с мягким свечением */
+/* Анимация заголовков */
 .title-anim {
     animation: titleGlow 4s ease infinite alternate;
 }
@@ -284,6 +312,10 @@ body {
    БЛОК СТАТИСТИКИ
 ================================ */
 
+.stats {
+    padding-top: 0;
+}
+
 .stats-inner {
     padding: 20px 40px 0;
 }
@@ -294,10 +326,8 @@ body {
     gap: 20px;
     padding: 18px 22px;
     border-radius: 16px;
-    
     background: radial-gradient(circle at top left, rgba(255,77,160,0.25), transparent),
                 radial-gradient(circle at bottom right, rgba(255,174,71,0.22), transparent);
-
     border: 1px solid rgba(255,255,255,0.12);
     backdrop-filter: blur(24px);
 }
@@ -318,7 +348,7 @@ body {
 }
 
 /* ================================
-   КАРТОЧКИ
+   КАРТОЧКИ / СЕТКА
 ================================ */
 
 .cards {
@@ -340,13 +370,18 @@ body {
 }
 
 .glass:hover {
-    transform: translateY(-7px) scale(1.03);
+    transform: translateY(-7px) scale(1.025);
+    box-shadow: 0 10px 34px rgba(0,0,0,0.45);
     background: rgba(255,255,255,0.15);
 }
 
 /* ================================
-   СТЕПЫ
+   КАК РАБОТАЕТ (СТЕПЫ)
 ================================ */
+
+.steps-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
 
 .step-card {
     position: relative;
@@ -360,15 +395,13 @@ body {
     width: 28px;
     height: 28px;
     border-radius: 999px;
-
     background: linear-gradient(135deg, #ff4da0, #ffae47);
     display: flex;
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
     font-weight: 700;
-    color: #000;
     font-size: 15px;
+    color: #000;
 }
 
 /* ================================
@@ -386,29 +419,28 @@ body {
     gap: 16px;
     padding: 22px;
     border-radius: 18px;
-
     background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
     backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.08);
     transition: 0.3s ease;
 }
 
 .testimonial-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
 }
 
 .avatar-circle {
     width: 40px;
     height: 40px;
     border-radius: 999px;
-
     background: linear-gradient(135deg, #ff4da0, #ffae47);
     display: flex;
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
     font-weight: 700;
     color: #000;
+    flex-shrink: 0;
 }
 
 .testimonial-name {
@@ -426,8 +458,8 @@ body {
 }
 
 .premium-box ul li {
-    list-style: none;
     margin-bottom: 10px;
+    list-style: none;
     font-size: 17px;
 }
 
@@ -438,33 +470,32 @@ body {
 .legal-links a {
     display: inline-block;
     margin-right: 20px;
-
     color: #ffae47;
     text-decoration: none;
     font-size: 15px;
+    transition: 0.2s ease;
 }
 
 .legal-links a:hover {
-    color: #ffdba6;
+    color: #ffd9a1;
 }
 
 /* ================================
-   CTA
+   CTA-СЕКЦИЯ
 ================================ */
 
 .cta-section {
-    padding: 40px 0 100px;
+    padding-top: 40px;
+    padding-bottom: 100px;
 }
 
 .cta-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     gap: 24px;
     padding: 26px 28px;
     border-radius: 20px;
-
     background: linear-gradient(120deg, rgba(255,77,160,0.18), rgba(255,174,71,0.18));
     border: 1px solid rgba(255,255,255,0.18);
     backdrop-filter: blur(20px);
@@ -498,6 +529,7 @@ body {
 
 .footer-title {
     font-weight: 600;
+    font-size: 16px;
 }
 
 .footer-sub {
@@ -505,18 +537,27 @@ body {
     opacity: 0.7;
 }
 
-
 /* ================================
    SCROLL REVEAL
 ================================ */
 
-.reveal, .reveal-up {
+.reveal {
     opacity: 0;
     transform: translateY(40px);
     transition: 0.8s ease;
 }
 
-.reveal.visible,
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 0.8s ease;
+}
+
 .reveal-up.visible {
     opacity: 1;
     transform: translateY(0);
@@ -526,28 +567,30 @@ body {
    АДАПТИВ
 ================================ */
 
+@media (max-width: 1100px) {
+    h1 {
+        font-size: 42px;
+    }
+}
+
 @media (max-width: 900px) {
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        gap: 40px;
-    }
-    
-    .hero-left {
-        max-width: 100%;
-    }
-
-    .ai-tag {
-        right: 10px;
-        top: 10px;
-    }
-
     h1 {
         font-size: 36px;
+    }
+
+    .cta-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cta-btn {
+        width: 100%;
+        text-align: center;
     }
 }
 
 @media (max-width: 768px) {
+
     .container {
         padding: 0 20px;
     }
@@ -564,40 +607,63 @@ body {
         display: flex;
     }
 
+    .hero {
+        padding: 70px 0 80px;
+    }
+
     h1 {
         font-size: 30px;
+    }
+
+    .hero-text {
+        font-size: 16px;
     }
 
     .cards {
         grid-template-columns: 1fr;
     }
+
+    .cta-inner {
+        padding: 22px;
+    }
 }
 
 @media (max-width: 480px) {
+
     h1 {
         font-size: 26px;
     }
 
     .btn {
         width: 100%;
+        text-align: center;
         margin-bottom: 10px;
+        margin-right: 0;
     }
 
     .hero-buttons {
+        display: flex;
         flex-direction: column;
+    }
+
+    .stats-inner {
+        padding: 10px 20px 0;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 
-/* ================================
-   CANVAS — AI background
-================================ */
+
+
 
 #aiBackground {
     position: fixed;
     inset: 0;
     width: 100vw;
     height: 100vh;
-
     z-index: -2;
     opacity: 0.55;
     pointer-events: none;
@@ -605,8 +671,81 @@ body {
     filter: blur(0.4px);
 }
 
+body {
+    background: #0d0d12;
+    position: relative;
+    z-index: 1;
+}
+
+
+
+
+
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+}
+
+.hero-left {
+    flex: 1;
+    max-width: 650px;
+}
+
+.hero-right {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Картинка */
+.hero-image {
+    width: 90%;
+    max-width: 520px;
+    filter: drop-shadow(0 0 25px rgba(255, 120, 200, 0.25));
+    animation: floatImg 6s ease-in-out infinite;
+}
+
+@keyframes floatImg {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-16px); }
+    100% { transform: translateY(0); }
+}
+
+/* Плашка Karamelka AI */
+.ai-tag {
+    position: absolute;
+    top: -10px;
+    right: 40px;
+    background: rgba(255,255,255,0.14);
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 16px rgba(255,120,200,0.45);
+    animation: tagPulse 3s ease-in-out infinite;
+}
+
+@keyframes tagPulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+
+
+
+
+
 /* ================================
-   ДОПОЛНИТЕЛЬНЫЙ ТЁМНЫЙ РАДИАЛЬНЫЙ ФОН
+   ПОФИКШЕННЫЙ ФОН — ТЁМНЫЙ И НЕЖНЫЙ
 ================================ */
 
 body::before {
@@ -617,9 +756,90 @@ body::before {
     pointer-events: none;
 
     background:
-        radial-gradient(circle at 18% 40%, rgba(255,60,140,0.06), rgba(8,8,15,1)),
-        radial-gradient(circle at 55% 55%, rgba(80,60,140,0.05), rgba(5,5,12,1)),
-        radial-gradient(circle at 88% 60%, rgba(255,120,40,0.015), rgba(4,4,10,1));
 
-    opacity: 0.42;
+        /* Левый мягкий розовый — сильно приглушён */
+        radial-gradient(
+            circle at 18% 40%,
+            rgba(255, 60, 140, 0.06) 0%,
+            rgba(60, 20, 70, 0.10) 35%,
+            rgba(8, 8, 15, 1) 100%
+        ),
+
+        /* центральный фиолетовый — затемнили ещё на 30% */
+        radial-gradient(
+            circle at 55% 55%,
+            rgba(80, 60, 140, 0.05) 0%,
+            rgba(40, 30, 80, 0.10) 45%,
+            rgba(5, 5, 12, 1) 100%
+        ),
+
+        /* правый оранжевый — почти убран */
+        radial-gradient(
+            circle at 88% 60%,
+            rgba(255, 120, 40, 0.015) 0%,   /* было 0.02 */
+            rgba(50, 35, 70, 0.04) 30%,
+            rgba(4, 4, 10, 1) 100%
+        );
+
+    opacity: 0.42; /* ещё темнее — идеал */
+    background-blend-mode: screen;
 }
+
+
+
+
+
+
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 550px;
+    gap: 40px;
+}
+
+.hero-left {
+    flex: 1;
+    max-width: 540px;
+}
+
+.hero-right {
+    flex: 1;
+    min-width: 380px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Временная заглушка (чтобы макет держался) */
+.hero-placeholder {
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05), transparent);
+    opacity: 0.2;
+}
+
+/* Плашка Karamelka AI */
+.ai-tag {
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    background: rgba(255,255,255,0.15);
+    padding: 8px 18px;
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: white;
+    animation: tagPulse 3s ease-in-out infinite;
+}
+
+@keyframes tagPulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
