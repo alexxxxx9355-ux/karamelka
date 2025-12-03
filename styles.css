@@ -784,3 +784,62 @@ body::before {
     opacity: 0.42; /* ещё темнее — идеал */
     background-blend-mode: screen;
 }
+
+
+
+
+
+
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 550px;
+    gap: 40px;
+}
+
+.hero-left {
+    flex: 1;
+    max-width: 540px;
+}
+
+.hero-right {
+    flex: 1;
+    min-width: 380px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Временная заглушка (чтобы макет держался) */
+.hero-placeholder {
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05), transparent);
+    opacity: 0.2;
+}
+
+/* Плашка Karamelka AI */
+.ai-tag {
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    background: rgba(255,255,255,0.15);
+    padding: 8px 18px;
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: white;
+    animation: tagPulse 3s ease-in-out infinite;
+}
+
+@keyframes tagPulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
