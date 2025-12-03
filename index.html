@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Помощник Карамелька — Кулинарный AI</title>
+    <title>Помощник Карамелька — Кулинарный AI-помощник</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<!-- Анимированный фон -->
+<!-- ==== Фоновые blob-эффекты ==== -->
 <div class="background-anim">
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
     <div class="blob blob3"></div>
 </div>
 
+<!-- ==== ШАПКА ==== -->
 <header class="header">
     <div class="container header-inner">
         <div class="logo">
@@ -22,7 +24,6 @@
             <span>Кулинарный AI-помощник</span>
         </div>
 
-        <!-- Меню для десктопа -->
         <nav class="menu">
             <a href="#about">О помощнике</a>
             <a href="#how">Как работает</a>
@@ -31,59 +32,57 @@
             <a href="#legal">Условия</a>
         </nav>
 
-        <!-- Бургер-иконка -->
-        <div class="burger">
+        <div class="burger" id="burger">
             <span></span><span></span><span></span>
         </div>
-    </div>
 
-    <!-- Мобильное меню -->
-    <div class="mobile-menu">
-        <a href="#about">О помощнике</a>
-        <a href="#how">Как работает</a>
-        <a href="#features">Возможности</a>
-        <a href="#premium">Премиум</a>
-        <a href="#legal">Условия</a>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#about">О помощнике</a>
+            <a href="#how">Как работает</a>
+            <a href="#features">Возможности</a>
+            <a href="#premium">Премиум</a>
+            <a href="#legal">Условия</a>
+        </div>
     </div>
 </header>
 
+<!-- ==== HERO БЛОК ==== -->
 <section class="hero">
-    <div class="container hero-left">
+    <div class="hero-left">
         <span class="ai-tag">Новый уровень с Карамелька AI</span>
 
-        <h1>
+        <h1 class="title-anim">
             Ваш персональный кулинарный помощник, который делает еду проще, быстрее и вкуснее.
         </h1>
 
-        <p>
+        <p style="opacity:.85; margin-top:15px;">
             Карамелька AI подбирает рецепты, планирует питание, помогает экономить бюджет и работает прямо в Telegram — просто и по-домашнему.
         </p>
 
-        <a href="#" class="btn primary">Открыть помощника в Telegram</a>
+        <div class="hero-buttons" style="margin-top:28px;">
+            <a href="#" class="btn primary">Открыть помощника в Telegram</a>
+        </div>
     </div>
 
     <div class="hero-image-wrapper">
-        <img src="assets/hero.png" class="hero-image" alt="">
+        <img src="assets/hero.png" alt="" class="hero-image">
     </div>
 </section>
 
-
-
-
-
-
-<!-- Блок цифр -->
-<section class="section stats reveal">
+<!-- ==== СТАТИСТИКА ==== -->
+<section class="section reveal">
     <div class="container stats-inner">
         <div class="stats-grid">
             <div class="stat-item">
                 <div class="stat-number">500+</div>
                 <div class="stat-label">первых пользователей</div>
             </div>
+
             <div class="stat-item">
                 <div class="stat-number">3000+</div>
                 <div class="stat-label">сгенерированных рецептов</div>
             </div>
+
             <div class="stat-item">
                 <div class="stat-number">24/7</div>
                 <div class="stat-label">поддержка и помощь</div>
@@ -92,172 +91,77 @@
     </div>
 </section>
 
-<!-- Как работает -->
+<!-- ==== КАК РАБОТАЕТ ==== -->
 <section id="how" class="section reveal">
     <div class="container">
         <h2 class="title-anim">Как работает Помощник Карамелька</h2>
-        <p class="section-subtitle">Всего три простых шага — и ужин уже продуман.</p>
-
-        <div class="cards steps-grid">
-            <div class="card glass step-card reveal-up">
-                <div class="step-icon">1</div>
-                <h3>Открываете помощника</h3>
-                <p>Переходите в Telegram и запускаете Помощника Карамелька. Не нужны отдельные приложения и регистрации.</p>
-            </div>
-
-            <div class="card glass step-card reveal-up">
-                <div class="step-icon">2</div>
-                <h3>Пишите обычным языком</h3>
-                <p>«Что приготовить на ужин из курицы и картошки?», «Сделай план питания на 3 дня», «Придумай недорогое меню».</p>
-            </div>
-
-            <div class="card glass step-card reveal-up">
-                <div class="step-icon">3</div>
-                <h3>Получаете готовые идеи</h3>
-                <p>AI предлагает варианты, даёт список продуктов, шаги приготовления и подсказки по экономии и хранению.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- О помощнике -->
-<section id="about" class="section reveal">
-    <div class="container">
-        <h2 class="title-anim">Что такое Помощник Карамелька</h2>
-        <p class="section-subtitle">Это не просто бот, а умный кулинарный AI, который подстраивается под ваш ритм жизни.</p>
+        <p class="section-subtitle">Простой и удобный формат — всё внутри Telegram.</p>
 
         <div class="cards">
-            <div class="card glass reveal-up">
-                <h3>Кулинарный помощник</h3>
-                <p>Подбирает рецепты под продукты, настроение, время и бюджет. Быстрые ужины, блюда к празднику, готовка «из того, что есть».</p>
+            <div class="card glass">
+                <h3>1. Задайте вопрос</h3>
+                <p>Напишите, что хотите приготовить, какие продукты есть или какую задачу решить.</p>
             </div>
 
-            <div class="card glass reveal-up">
-                <h3>AI-помощник</h3>
-                <p>Понимает обычный язык, отвечает по делу, не грузит лишним текстом и даёт конкретные шаги.</p>
+            <div class="card glass">
+                <h3>2. Получите советы</h3>
+                <p>AI предложит рецепты, лайфхаки, меню на неделю или составит список покупок.</p>
             </div>
 
-            <div class="card glass reveal-up">
-                <h3>Помощник по быту</h3>
-                <p>Подсказывает, как хранить продукты, что можно заморозить, чем заменить ингредиенты и как не выбрасывать еду.</p>
-            </div>
-
-            <div class="card glass reveal-up">
-                <h3>Премиум-возможности</h3>
-                <p>Планы питания, расширенные лимиты, быстрые ответы, сценарии, розыгрыши и расширенный функционал.</p>
+            <div class="card glass">
+                <h3>3. Готовьте проще</h3>
+                <p>Используйте подсказки и быстрые ответы, чтобы экономить время и деньги.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Для кого -->
-<section class="section reveal">
-    <div class="container">
-        <h2 class="title-anim">Кому подойдёт помощник</h2>
-        <p class="section-subtitle">Кулинарный AI, который впишется в любой ритм жизни.</p>
-
-        <div class="cards">
-            <div class="card glass reveal-up">
-                <h3>Занятые люди</h3>
-                <p>Когда нет времени стоять у плиты часами, но хочется нормальную домашнюю еду без полуфабрикатов.</p>
-            </div>
-
-            <div class="card glass reveal-up">
-                <h3>Семьи с детьми</h3>
-                <p>Когда нужно кормить всех по-разному, учитывать вкусы, аллергию, садик/школу и бюджет.</p>
-            </div>
-
-            <div class="card glass reveal-up">
-                <h3>Новички на кухне</h3>
-                <p>Шаги простым языком, минимальная техника, понятные инструкции без «обжаривайте до готовности».</p>
-            </div>
-
-            <div class="card glass reveal-up">
-                <h3>Те, кто экономит</h3>
-                <p>Идеи, как использовать остатки, не выбрасывать продукты и планировать покупки заранее.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Возможности -->
+<!-- ==== ВОЗМОЖНОСТИ ==== -->
 <section id="features" class="section reveal">
     <div class="container">
         <h2 class="title-anim">Возможности помощника</h2>
-        <p class="section-subtitle">AI берёт на себя расчёты, подбор и планирование, а вы — только готовите.</p>
 
         <div class="cards">
-            <div class="card glass reveal-up">
-                <h3>Подбор рецептов</h3>
-                <p>Идеи под продукты, время, бюджет и настроение. От «быстрого перекуса» до полноценного ужина.</p>
+            <div class="card glass step-card">
+                <div class="step-icon">🍳</div>
+                <h3>Пошаговые рецепты</h3>
+                <p>Готовьте с удобными инструкциями, таймингами и подсказками.</p>
             </div>
 
-            <div class="card glass reveal-up">
-                <h3>Планы питания</h3>
-                <p>Меню на день, 2–3 дня или неделю. Можно учесть цель, ограничения и предпочтения.</p>
+            <div class="card glass step-card">
+                <div class="step-icon">🛒</div>
+                <h3>Покупки под бюджет</h3>
+                <p>Списки продуктов и советы, как уложиться в сумму.</p>
             </div>
 
-            <div class="card glass reveal-up">
-                <h3>Лайфхаки и советы</h3>
-                <p>Про хранение, заморозку, замену ингредиентов и простые бытовые решения.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Отзывы -->
-<section class="section reveal">
-    <div class="container">
-        <h2 class="title-anim">Живые отзывы</h2>
-        <p class="section-subtitle">Первые пользователи уже тестируют помощника и делятся впечатлениями.</p>
-
-        <div class="testimonials-grid">
-            <div class="testimonial-card reveal-up">
-                <div class="avatar-circle">А</div>
-                <div class="testimonial-body">
-                    <div class="testimonial-name">Анна, 32 года</div>
-                    <p>«Раньше открывала холодильник и зависала. Сейчас просто пишу Карамельке, что у меня есть, и получаю 3–4 варианта ужина. Это реально экономит голову.»</p>
-                </div>
-            </div>
-
-            <div class="testimonial-card reveal-up">
-                <div class="avatar-circle">И</div>
-                <div class="testimonial-body">
-                    <div class="testimonial-name">Игорь, 28 лет</div>
-                    <p>«Живу один, готовить не особо умею. Помощник даёт простые рецепты и не грузит. Научился делать нормальные блюда без заскоков и сложных продуктов.»</p>
-                </div>
-            </div>
-
-            <div class="testimonial-card reveal-up">
-                <div class="avatar-circle">М</div>
-                <div class="testimonial-body">
-                    <div class="testimonial-name">Мария, 37 лет</div>
-                    <p>«У нас двое детей, работа и минимум времени. План питания от Карамельки снимает вопрос “что готовить”, а ещё помогает закупаться без лишнего.»</p>
-                </div>
+            <div class="card glass step-card">
+                <div class="step-icon">⚡</div>
+                <h3>Быстрые ответы</h3>
+                <p>Экономит время и сразу предлагает оптимальные варианты.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Премиум -->
+<!-- ==== ПРЕМИУМ ==== -->
 <section id="premium" class="section reveal">
     <div class="container">
-        <h2 class="title-anim">Премиум для тех, кто хочет больше</h2>
-        <p class="section-subtitle">Расширенные функции, комфорт и приоритетные ответы.</p>
+        <h2 class="title-anim">Премиум-возможности</h2>
+        <p class="section-subtitle">Расширенный функционал для тех, кто готовит много.</p>
 
         <div class="premium-box glass reveal-up">
             <ul>
                 <li>✨ Детальные планы питания под ваши цели</li>
-                <li>🍳 Авторские подборки и вариации рецептов</li>
-                <li>🔍 Умный поиск по продуктам и запросам</li>
-                <li>🎁 Эксклюзивные розыгрыши и бонусы</li>
-                <li>⚡ Быстрые AI-ответы и повышенные лимиты</li>
+                <li>🍳 Авторские подборки рецептов</li>
+                <li>🔍 Умный поиск по продуктам</li>
+                <li>🎁 Эксклюзивные розыгрыши</li>
+                <li>⚡ Повышенные лимиты и быстрые ответы</li>
             </ul>
         </div>
     </div>
 </section>
 
-<!-- Документы -->
+<!-- ==== ДОКУМЕНТЫ ==== -->
 <section id="legal" class="section reveal">
     <div class="container">
         <h2 class="title-anim">Документы и информация</h2>
@@ -271,35 +175,43 @@
     </div>
 </section>
 
-<!-- Финальный CTA -->
+<!-- ==== CTA ==== -->
 <section class="section cta-section reveal">
     <div class="container cta-inner">
         <div>
             <h2 class="title-anim">Готовы попробовать помощника?</h2>
-            <p>Запустите Карамельку в Telegram, задайте первый вопрос и посмотрите, как AI впишется в вашу повседневную кухню.</p>
+            <p>Запустите Карамельку в Telegram и задайте первый вопрос — кухня станет проще.</p>
         </div>
-        <a href="#" class="btn primary cta-btn">Открыть помощника в Telegram</a>
+        <a href="#" class="btn primary cta-btn">Открыть помощника</a>
     </div>
 </section>
 
+<!-- ==== ФУТЕР ==== -->
 <footer class="footer reveal">
     <div class="container footer-inner">
         <div class="footer-left">
             <div class="footer-title">Помощник Карамелька</div>
             <div class="footer-sub">Кулинарный AI-помощник в Telegram.</div>
         </div>
+
         <div class="footer-right">
-            <span>© 2025 · Все права защищены</span>
+            © 2025 · Все права защищены
         </div>
     </div>
 </footer>
 
-<!-- Скрипты эффектов -->
+<!-- ==== Скрипты ==== -->
 <script>
 // Липкая шапка
 window.addEventListener("scroll", () => {
     document.querySelector(".header").classList.toggle("scrolled", window.scrollY > 40);
 });
+
+// Бургер меню
+document.getElementById("burger").onclick = () => {
+    document.getElementById("mobileMenu").classList.toggle("open");
+    document.getElementById("burger").classList.toggle("active");
+};
 
 // Параллакс фона
 document.addEventListener("mousemove", (e) => {
@@ -316,134 +228,11 @@ document.addEventListener("mousemove", (e) => {
 const revealElements = document.querySelectorAll(".reveal, .reveal-up");
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-        }
+        if (entry.isIntersecting) entry.target.classList.add("visible");
     });
-}, { threshold: 0.15 });
-
-revealElements.forEach(el => observer.observe(el));
-
-// Burger menu
-document.querySelector(".burger").onclick = function () {
-    document.querySelector(".mobile-menu").classList.toggle("open");
-    this.classList.toggle("active");
-};
-</script>
-
-
-    
-<canvas id="aiBackground"></canvas>
-
-
-
-
-
-
-<script>
-const canvas = document.getElementById("aiBackground");
-const ctx = canvas.getContext("2d");
-
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener("resize", resize);
-
-let mouse = { x: -9999, y: -9999 };
-window.addEventListener("mousemove", e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
 });
-
-const POINTS = 42;
-
-let nodes = [];
-for (let i = 0; i < POINTS; i++) {
-    nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-        pulse: Math.random() * Math.PI * 2,
-        flickerSpeed: 0.003 + Math.random() * 0.01, // скорость мерцания
-        baseSize: 1.8 + Math.random() * 1.8 // размер разный = натурально
-    });
-}
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    nodes.forEach((n, i) => {
-        // Движение
-        n.x += n.vx;
-        n.y += n.vy;
-
-        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
-        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
-
-        // Пульсация
-        n.pulse += n.flickerSpeed;
-        const flicker = Math.sin(n.pulse) * 0.4; // мягкое мерцание
-
-        // Мягкая реакция на мышь
-        const dx = mouse.x - n.x;
-        const dy = mouse.y - n.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 140) {
-            n.x -= dx * 0.003;
-            n.y -= dy * 0.003;
-        }
-
-        // ---- Рисуем точку со свечением ----
-        const glow = 0.6 + flicker * 0.4; // яркость точки
-
-        const size = n.baseSize + flicker * 0.5;
-
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 200, 230, ${0.55 * glow})`;
-        ctx.shadowColor = "rgba(255,150,220,0.4)";
-        ctx.shadowBlur = 12 * glow;
-        ctx.fill();
-
-        ctx.shadowBlur = 0; // сброс
-
-        // ---- Линии между узлами ----
-        for (let j = i + 1; j < nodes.length; j++) {
-            const n2 = nodes[j];
-            const dx2 = n.x - n2.x;
-            const dy2 = n.y - n2.y;
-            const d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-
-            if (d2 < 180) {
-                const alpha = (1 - d2 / 180) * 0.22;
-                ctx.strokeStyle = `rgba(255,160,220, ${alpha})`;
-                ctx.lineWidth = 0.7;
-                ctx.beginPath();
-                ctx.moveTo(n.x, n.y);
-                ctx.lineTo(n2.x, n2.y);
-                ctx.stroke();
-            }
-        }
-    });
-
-    requestAnimationFrame(animate);
-}
-
-animate();
+revealElements.forEach(el => observer.observe(el));
 </script>
-
-
-
-
-
-    
 
 </body>
 </html>
-
-
-
-
