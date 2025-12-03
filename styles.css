@@ -218,13 +218,6 @@ body {
     max-width: 560px;
 }
 
-.hero-right {
-    flex: 1;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 /* Плашка справа */
 .ai-tag {
@@ -632,3 +625,18 @@ body::before {
 }
 
 
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 140px 0 160px;
+    text-align: left;
+}
+
+.hero-center {
+    max-width: 680px;
+}
+
+.hero-buttons {
+    margin-top: 28px;
+}
